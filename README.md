@@ -9,7 +9,7 @@
   + Browsers read css selectors from right to left. `footer nav a` then is parsed by the browser first by searching the dom for `a` tags, then finding which of those exist within a `nav` tag, and then find which of those exist within a `footer` tag. In this example, while a page may only have four (4) anchor tags within the footer nav, the browser still parses through all anchor tags on the page just to style four (4) links. **Decendant selectors are therefore very expensive and should be avoided as much as possilbe**.
 
 
-## Selectors
+## Selector Types
 
 #### Id's
   + Use underscores to match rails and simple_form generated content
@@ -79,7 +79,7 @@
   + `.foo > .bar` *applies to all .bar elements that are direct descendants of .foo*
 
 
-## Formatting and Concerns
+## Formatting
 
 #### Whitespace
   + Add a single space between declarations and parentheses
@@ -103,7 +103,7 @@
     .foo-bar-baz {}
     ```
 
-  + Add a semi-colon and a return after multiple declarations
+  + Add a semi-colon after each declaration and a return after multiple declarations
 
     ```scss
     // Bad
@@ -122,7 +122,7 @@
     .pull-left { float: left; }
     ```
 
-  + Add a space after the colon in declarations
+  + Add a space after the colon between a declaration and its value
 
     ```scss
     // Bad
@@ -138,7 +138,7 @@
     }
     ```
 
-  + Add a return between child declarations
+  + Add a line-break between child declarations
 
     ```scss
     // Bad
@@ -161,7 +161,7 @@
     }
     ```
 
-  + Add a return between declarations
+  + Add a line-break between declarations
 
     ```scss
     // Bad
@@ -221,6 +221,238 @@
     }
     ```
 
+#### Namespacing (follows OOCSS for classes and rails format for ids)
+  + Use underscores for id's
+
+    ```scss
+    #foo_bar {}
+    ```
+
+  + Use hyphens for class names
+
+    ```scss
+    .foo-bar {}
+    ```
+
+  + Use two hyphens for class alternatives
+
+    ```scss
+    .foo-bar {}
+
+    .foo-bar--alternative {}
+    ```
+
+  + Use two underscores for child elements
+
+    ```scss
+    .foo-bar {}
+
+    .foo-bar__child {}
+    ```
+
+#### Selectors
+  + Avoid using id's
+
+    ```scss
+    // <div id="foo" class="foo-bar">
+    // bad
+    #foo {}
+
+    // Good
+    .foo-bar
+    ```
+
+  + Scope children elements with classes, rather than descendant selectors
+
+    ```scss
+    // Bad
+    // <footer>
+    //   <nav>
+    //     <a href="#">Link</a>
+    //   </nav>
+    // </footer>
+    footer nav a {}
+
+    // Good
+    // <footer class="site-footer">
+    //   <nav>
+    //     <a href="#" class="site-footer__link">Link</a>
+    //   </nav>
+    // </footer>
+    .site-footer__link {}
+    ```
+
+  + Use a maximum of four descendant selectors (but prefer less) and avoid universal selectors. If you need more, then add an appropriate class instead.
+
+    ```scss
+    // Bad
+    // <header>
+    //   <nav>
+    //     <ul>
+    //       <li>
+    //         <a href="#">Link</a>
+    //       </li>
+    //     </ul>
+    //   </nav>
+    // </header>
+    header {
+      nav {
+        ul {
+          li {
+            a {}
+          }
+        }
+      }
+    }
+
+    // Good
+    // <header>
+    //   <nav class="main-nav">
+    //     <ul>
+    //       <li>
+    //         <a href="#" class="main-nav__link">Link</a>
+    //       </li>
+    //     </ul>
+    //   </nav>
+    // </header>
+    .main-nav__link {}
+    ```
+
+  + Don't prepend element tags to classes (unless absolutely needed)
+
+    ```scss
+    // Bad
+    a.main-nav__link {}
+
+    // Good
+    .main-nav__link {}
+    ```
+
+  + Rely on inheritance
+
+    ```scss
+    // Bad
+    .foo-bar p { color: #fff; }
+
+    // Good  
+    .foo-bar { color: #fff; }
+    ```
+
+#### Comments
+  + Use `//` for comment blocks unless you intend for the compiled css to contain the comment
+
+    ```scss
+    // Bad
+    /* Just a regular ol' comment */
+    /* An important comment that I want in the compiled css */
+
+    // Good
+    // Just a regular ol' comment
+    /* An important comment that I want in the compiled css */
+    ```
+
+#### Sizes and numbers
+  + Append 0 to amounts between 0 and 1
+
+    ```scss
+    // Bad
+    .foo-bar {
+      margin: .5em;
+      padding: .5em;
+    }
+
+    // Good
+    .foo-bar {
+      margin: 0.5em;
+      padding: 0.5em;
+    }
+    ```
+
+  + Prefer em's over px for padding, margin, and font-size
+
+    ```scss
+    // Assuming a 16px or 100% base font-size in html or body tag
+    // Bad
+    .foo-bar {
+      font-size: 16px;
+      margin: 24px 0;
+      padding: 24px;
+    }
+
+    // Good
+    .foo-bar {
+      font-size: 1em;
+      margin: 1.5em 0;
+      padding: 1.5em;
+    }
+    ```
+
+  + Prefer relative line-heights over px or em
+
+    ```scss
+    // Bad
+    .foo-bar {
+      font-size: 1em;
+      line-height: 1.5em;
+    }
+
+    // Good
+    .foo-bar {
+      font-size: 1em;
+      line-height: 1.5;
+    }
+    ```
+
+  + For zero (0) amounts, don't append a unit
+
+    ```scss
+    // Bad
+    .foo-bar {
+      margin: 1em 0em;
+      padding: 0em 1em;
+    }
+
+    // Good
+    .foo-bar {
+      margin: 1em 0;
+      padding: 0 1em;
+    }
+    ```
+
+#### Class naming
+  + Use human-readable class names but no longer than needed
+
+    ```scss
+    // Bad
+    .cnt {}
+    .navigation {}
+    .this-is-a-nav-link-element {}
+
+    // Good
+    .content {}
+    .nav {}
+    .nav__link {}
+    ```
+
+#### Colors
+  + Use hex codes for colors
+
+    ```scss
+    // Bad
+    .foo-bar {
+      background: rgba(0,0,0,0.75);
+      color: rgb(255,255,255);
+    }
+
+    // Good
+    .foo-bar {
+      background: transparentize(#000, 0.25);
+      color: #ffffff;
+    }
+    ```
+
+## Ordering and Organizing
+
 #### Ordering
   + Alphabetize
 
@@ -277,45 +509,6 @@
     }
     ```
 
-#### Namespacing (follows OOCSS for classes and rails format for ids)
-  + Use underscores for id's
-
-    ```scss
-    #foo_bar {}
-    ```
-
-  + Use hyphens for class names
-
-    ```scss
-    .foo-bar {}
-    ```
-
-  + Use two hyphens for class alternatives
-
-    ```scss
-    .foo-bar {}
-
-    .foo-bar--alternative {}
-    ```
-
-  + Use two underscores for child elements
-
-    ```scss
-    .foo-bar {}
-
-    .foo-bar__child {}
-    ```
-
-  + Scope children elements with classes, rather than descendant selectors
-
-    ```scss
-    // Bad
-    .site-footer a {}
-
-    // Good
-    .site-footer__link {}
-    ```
-
 #### Organization
   + Use modules and appropriate class names rather than repeat declarations
 
@@ -348,75 +541,7 @@
     }
     ```
 
-#### Sizes
-  + Append 0 to amounts between 0 and 1
-
-    ```scss
-    // Bad
-    .foo-bar {
-      margin: .5em;
-      padding: .5em;
-    }
-
-    // Good
-    .foo-bar {
-      margin: 0.5em;
-      padding: 0.5em;
-    }
-    ```
-
-  + Prefer em's over px for padding, margin, and font-size
-
-    ```scss
-    // Assuming a 16px or 100% base font-size in html or body tag
-    // Bad
-    .foo-bar {
-      font-size: 16px;
-      margin: 24px 0;
-      padding: 24px;
-    }
-
-    // Good
-    .foo-bar {
-      font-size: 1em;
-      margin: 1.5em 0;
-      padding: 1.5em;
-    }
-    ```
-
-  + Prefer relative line-heights over px or em
-
-    ```scss
-    // Bad
-    .foo-bar {
-      font-size: 1em;
-      line-height: 1.5em;
-    }
-
-    // Good
-    .foo-bar {
-      font-size: 1em;
-      line-height: 1.5;
-    }
-    ```
-
-  + For zero (0) amounts, don't append px or em
-
-    ```scss
-    // Bad
-    .foo-bar {
-      margin: 1em 0em;
-      padding: 0em 1em;
-    }
-
-    // Good
-    .foo-bar {
-      margin: 1em 0;
-      padding: 0 1em;
-    }
-    ```
-
-#### Sass/Rails
+## Sass with Rails
   + Use sass variables for colors
 
     ```scss
