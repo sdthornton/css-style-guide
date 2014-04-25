@@ -79,7 +79,7 @@
   + `.foo > .bar` *applies to all .bar elements that are direct descendants of .foo*
 
 
-## Formatting
+## Formatting and Concerns
 
 #### Whitespace
   + Add a single space between declarations and parentheses
