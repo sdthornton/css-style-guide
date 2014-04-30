@@ -1,12 +1,49 @@
 # FED CSS Style Guide
 *A generally agreed upon approach to css/scss for the Bespoke app*
 
+## Table of Contents
+
+- **[Precusory Information](#precursory-information)**
+  1. [Browsers & Selectors](#browsers--selectors)
+  1. [OOCSS](#oocss)
+
+
+- **[Selector Types](#selector-types)**
+  1. [Id's](#ids)
+  1. [Classes](#classes)
+  1. [Tags](#tags)
+  1. [Universal](#universal)
+  1. [Pseudo Elements](#pseudo-elements)
+  1. [Special Selectors](#special-selectors)
+
+
+- **[Formatting](#formatting)**
+  1. [Whitespace](#whitespace)
+  1. [Namespacing](#namespacing)
+  1. [Selectors](#selectors)
+  1. [Commenting](#commenting)
+  1. [Sizes & Numbers](#sizes--numbers)
+  1. [Class Naming](#class-naming)
+  1. [Colors](#colors)
+
+
+- **[Ordering & Organizing](#ordering--organizing)**
+  1. [Ordering](#ordering)
+  1. [Organization](#organization)
+
+
+- **[Sass with Rails](#sass-with-rails)**
 
 ## Precursory Information
 
-#### How browsers read selectors
+#### Browsers & Selectors
 
   + Browsers read css selectors from right to left. `footer nav a` then is parsed by the browser first by searching the dom for `a` tags, then finding which of those exist within a `nav` tag, and then find which of those exist within a `footer` tag. In this example, while a page may only have four (4) anchor tags within the footer nav, the browser still parses through all anchor tags on the page just to style four (4) links. **Decendant selectors are therefore very expensive and should be avoided as much as possilbe**.
+
+#### OOCSS
+
+  + Object Oriented CSS (OOCSS) is a way of writing class names that encourages code reuse, reduces the number of descendant selectors, and ultimately creates faster and more efficient stylesheets that are easier to maintain. With OOCSS content is king and modules are the knights of the round table.
+  + While there is still debate over the best way to use OOCSS this style guide takes an approach we've found to be most easily implemented and maintained on a large app. Our implementaion of this strategy uses two underscores to declare children selectors, two hyphens to declare class name alternatives, and most importantly uses actual class names as modules (as opposed to SASS @extend placeholders). Ultimately, we've found that by using class names for our modules reduces our stylesheet size, even though it means our elements usually have more classes. For a large app, a smaller stylesheet is more important to us than fewer class names on elements.
 
 
 ## Selector Types
@@ -221,7 +258,7 @@
     }
     ```
 
-#### Namespacing (follows OOCSS for classes and rails format for ids)
+#### Namespacing
   + Use underscores for id's
 
     ```scss
@@ -338,7 +375,7 @@
     .foo-bar { color: #fff; }
     ```
 
-#### Comments
+#### Commenting
   + Use `//` for comment blocks unless you intend for the compiled css to contain the comment
 
     ```scss
@@ -351,7 +388,7 @@
     /* An important comment that I want in the compiled css */
     ```
 
-#### Sizes and numbers
+#### Sizes & Numbers
   + Append 0 to amounts between 0 and 1
 
     ```scss
@@ -419,7 +456,7 @@
     }
     ```
 
-#### Class naming
+#### Class Naming
   + Use human-readable class names but no longer than needed
 
     ```scss
@@ -451,7 +488,7 @@
     }
     ```
 
-## Ordering and Organizing
+## Ordering & Organizing
 
 #### Ordering
   + Alphabetize
