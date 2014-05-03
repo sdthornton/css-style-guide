@@ -1,5 +1,7 @@
 # FED CSS Style Guide
-*A generally agreed upon approach to css/scss for the Bespoke app*
+*A generally agreed upon approach to css/scss (originally composed for BespokeOffers.com)*
+
+> "Good code is its own best documentation." – Steve McConnell
 
 ## Table of Contents
 
@@ -34,22 +36,26 @@
 
 - **[Sass with Rails](#sass-with-rails)**
 
+
 ## Precursory Information
 
 #### Browsers & Selectors
 
-  + Browsers read css selectors from right to left. `footer nav a` then is parsed by the browser first by searching the dom for `a` tags, then finding which of those exist within a `nav` tag, and then find which of those exist within a `footer` tag. In this example, while a page may only have four (4) anchor tags within the footer nav, the browser still parses through all anchor tags on the page just to style four (4) links. **Decendant selectors are therefore very expensive and should be avoided as much as possilbe**.
+  + Browsers read css selectors from right to left. For example, `footer nav a` is parsed by the browser first by searching the DOM for any `a` tags, then finding which of those exist within a `nav` tag, and then finding which of those exist within a `footer` tag. In this example, while a page may only have four (4) anchor tags within the footer nav, the browser still parses through all anchor tags on the page just to style four (4) links. **Decendant selectors are therefore very expensive and should be avoided as much as possilbe**.
 
 #### OOCSS
 
   + Object Oriented CSS (OOCSS) is a way of writing class names that encourages code reuse, reduces the number of descendant selectors, and ultimately creates faster and more efficient stylesheets that are easier to maintain. With OOCSS content is king and modules are the knights of the round table.
-  + While there is still debate over the best way to use OOCSS this style guide takes an approach we've found to be most easily implemented and maintained on a large app. Our implementaion of this strategy uses two underscores to declare children selectors, two hyphens to declare class name alternatives, and most importantly uses actual class names as modules (as opposed to SASS @extend placeholders). Ultimately, we've found that by using class names for our modules reduces our stylesheet size, even though it means our elements usually have more classes. For a large app, a smaller stylesheet is more important to us than fewer class names on elements.
+
+  + While there is still debate over the best way to use OOCSS this style guide takes an approach we've found to be most easily implemented and maintained on a large app. Our implementation of this strategy uses two underscores to declare children selectors, two hyphens to declare class name alternatives, and most distinctly uses actual class names as modules (as opposed to SASS @extend placeholders). Ultimately, we've found that using class names for our modules reduces our stylesheet size even though it means our elements usually have more classes. For a large app, a smaller stylesheet is more important to us than reducing the number of class names on elements.
 
 
 ## Selector Types
 
 #### Id's
-  + Use underscores to match rails and simple_form generated content
+  + Prefer class names over id's
+
+  + Use underscores to match rails, simple_form, and other ruby generated content
 
     ```scss
     #foo_bar {}
@@ -57,7 +63,9 @@
 
 #### Classes
   + Use hyphens to match OOCSS namespacing
+
   + Use double underscores to imply a child selector
+
   + Use double hyphens to imply a variant selector
 
     ```scss
@@ -89,8 +97,8 @@
     ```
 
 #### Pseudo Elements
-  + Use for extra styling
-  + For accessibility reasons, avoid declaring site copy within a pseudo element  
+  + For accessibility reasons, avoid declaring site copy within a pseudo element
+
   + Use single colons, `:`, in order to maintain support for legacy browsers (this may change)
 
     ```scss
@@ -111,15 +119,18 @@
 
 #### Special Selectors
   + `*` *applies to all elements*
+
   + `.foo ~ .bar` *applies to all .bar elements that are preceded by .foo*
+
   + `.foo + .bar` *applies to all .bar elements that are immediately preceded by .foo*
+
   + `.foo > .bar` *applies to all .bar elements that are direct descendants of .foo*
 
 
 ## Formatting
 
 #### Whitespace
-  + Add a single space between declarations and parentheses
+  + Add a single space between selectors and parentheses
 
     ```scss
     // Bad
@@ -153,13 +164,7 @@
     }
     ```
 
-  + For selectors with a single declaration, append a semi-colon but keep to one line
-
-    ```scss
-    .pull-left { float: left; }
-    ```
-
-  + Add a space after the colon between a declaration and its value
+  + Add a space after the colon (`:`) between a declaration's name and value
 
     ```scss
     // Bad
@@ -175,7 +180,7 @@
     }
     ```
 
-  + Add a line-break between child declarations
+  + Add a line-break between indented child selectors (scss)
 
     ```scss
     // Bad
@@ -198,7 +203,7 @@
     }
     ```
 
-  + Add a line-break between declarations
+  + Add a line-break between separate selectors
 
     ```scss
     // Bad
@@ -211,7 +216,7 @@
     .bar {}
     ```
 
-  + Add a return after last delcaration
+  + Add a return after the last declaration and the closing curly bracket (`}`)
 
     ```scss
     // Bad
@@ -299,7 +304,7 @@
     .foo-bar
     ```
 
-  + Scope children elements with classes, rather than descendant selectors
+  + Scope children elements with class names, rather than descendant selectors
 
     ```scss
     // Bad
@@ -355,7 +360,7 @@
     .main-nav__link {}
     ```
 
-  + Don't prepend element tags to classes (unless absolutely needed)
+  + Don't prepend element tags to class names (unless absolutely needed)
 
     ```scss
     // Bad
@@ -380,10 +385,12 @@
 
     ```scss
     // Bad
+
     /* Just a regular ol' comment */
     /* An important comment that I want in the compiled css */
 
     // Good
+
     // Just a regular ol' comment
     /* An important comment that I want in the compiled css */
     ```
@@ -409,6 +416,7 @@
 
     ```scss
     // Assuming a 16px or 100% base font-size in html or body tag
+
     // Bad
     .foo-bar {
       font-size: 16px;
@@ -424,7 +432,7 @@
     }
     ```
 
-  + Prefer relative line-heights over px or em
+  + Prefer relative, unit-less line-height
 
     ```scss
     // Bad
@@ -472,7 +480,7 @@
     ```
 
 #### Colors
-  + Use hex codes for colors
+  + Use lowercase hex codes for colors
 
     ```scss
     // Bad
@@ -488,10 +496,22 @@
     }
     ```
 
+  + Use sass variables for colors
+
+    ```scss
+    // _variables.scss
+    $smoke: #f7f7f7;
+
+    // _global.scss
+    .foo-bar {
+      background: $smoke;
+    }
+    ```
+
 ## Ordering & Organizing
 
 #### Ordering
-  + Alphabetize
+  + Alphabetize delcarations
 
     ```scss
     // Bad
@@ -511,7 +531,7 @@
     }
     ```
 
-  + Delcare @extends first, then @includes, and then the rest of the declarations
+  + Delcare @extends first, followed by @includes, and then the rest of your declarations
 
     ```scss
     // Bad
@@ -531,7 +551,7 @@
     }
     ```
 
-  + Declare variations of a class after original declaration
+  + Declare variations of a class after original selector
     ```scss
     .content {
       @extend %clearfix;
@@ -547,11 +567,12 @@
     ```
 
 #### Organization
-  + Use modules and appropriate class names rather than repeat declarations
+  + Use modules and appropriate class names rather than repeating declarations
 
     ```scss
     // Bad
-    // <div class="buy-now">Buy Now</div>
+
+    /* <div class="buy-now">Buy Now</div> */
     .buy-now {
       background: #000;
       color: #fff;
@@ -559,7 +580,7 @@
       padding: 10px;
     }
 
-    // <div class="checkout">Checkout</div>
+    /* <div class="checkout">Checkout</div> */
     .checkout {
       background: #000;
       color: #fff;
@@ -568,8 +589,9 @@
     }
 
     // Good
-    // <div class="buy-now button">Buy Now</div>
-    // <div class="checkout button">Checkout</div>
+
+    /* <div class="buy-now button">Buy Now</div>
+       <div class="checkout button">Checkout</div> */
     .button {
       background: #000;
       color: #fff;
@@ -579,19 +601,8 @@
     ```
 
 ## Sass with Rails
-  + Use sass variables for colors
+  + Prefer @import's in application.css.scss over *= require. This prevents duplication of @extend's and removes the need to declare imports in each file.
 
-    ```scss
-    // _variables.scss
-    $smoke: #f7f7f7;
-
-    // _global.scss
-    .foo-bar {
-      background: $smoke;
-    }
-    ```
-
-  + Prefer @import's in application.css.scss over *= require. This prevents duplication of @extend's and removes the need to declare imports in each file. (This may not yet be possible until after refactor of application.css.scss).
   + Use image-url and font-url in .scss files over <%= asset_path %> in .scss.erb files
 
     ```scss
