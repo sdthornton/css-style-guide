@@ -52,8 +52,12 @@
 
 ## Selector Types
 
+*The information in this section is a bit redundant but has been placed here in order to give a deeper understanding of css selectors*
+
 #### Id's
-  + Prefer class names over id's
+  + Matches an element based on its `id` attribute
+
+  + Prefer class names over id's when writing css selectors
 
   + Use underscores to match rails, simple_form, and other ruby generated content
 
@@ -62,6 +66,8 @@
     ```
 
 #### Classes
+  + Matches an element based on the names within its `class` attribute
+
   + Use hyphens to match OOCSS namespacing
 
   + Use double underscores to imply a child selector
@@ -75,6 +81,8 @@
     ```
 
 #### Tags
+  + Matches an element based on its tag name, e.g. `div`
+
   + Avoid except for global scoping
 
     ```scss
@@ -125,6 +133,12 @@
   + `.foo + .bar` *applies to all .bar elements that are immediately preceded by .foo*
 
   + `.foo > .bar` *applies to all .bar elements that are direct descendants of .foo*
+
+  + `[class^="foo"]` *applies to all elements that have a class name that beings with the string `foo`*
+
+  + `[class*="bar"]` *applies to all elements that have a class name that contains the string `bar`*
+
+  + `[class$="baz"]` *applies to all elements that have a class name that ends with the string `baz`*
 
 
 ## Formatting
