@@ -1,4 +1,4 @@
-# CSS Style Guide
+# CSS Style Guide :book:
 *A generally agreed upon approach to css and scss (originally composed for BespokeOffers.com)*
 
 > "Good code is its own best documentation." – Steve McConnell
