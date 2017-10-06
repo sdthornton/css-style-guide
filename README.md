@@ -7,7 +7,7 @@
 
 - **[Precusory Information](#precursory-information)**
   1. [Browsers & Selectors](#browsers--selectors)
-  1. [OOCSS](#oocss)
+  1. [OOCSS (w/ BEM)](#oocss)
 
 
 - **[Selector Types](#selector-types)**
@@ -43,11 +43,11 @@
 
   + Browsers read css selectors from right to left. For example, `footer nav a` is parsed by the browser first by searching the DOM for any `a` tags, then finding which of those exist within a `nav` tag, and then finding which of those exist within a `footer` tag. In this example, while a page may only have four (4) anchor tags within the footer nav, the browser still parses through all anchor tags on the page just to style four (4) links. **Decendant selectors are therefore very expensive and should be avoided as much as possilbe**.
 
-#### OOCSS
+#### OOCSS (using BEM)
 
   + Object Oriented CSS (OOCSS) is a way of writing class names that encourages code reuse, reduces the number of descendant selectors, and ultimately creates faster and more efficient stylesheets that are easier to maintain. With OOCSS content is king and modules are the knights of the round table.
 
-  + While there is still debate over the best way to use OOCSS this style guide takes an approach we've found to be most easily implemented and maintained on a large app. Our implementation of this strategy uses two underscores to declare children selectors, two hyphens to declare class name alternatives, and most distinctly uses actual class names as modules (as opposed to SASS @extend placeholders). Ultimately, we've found that using class names for our modules reduces our stylesheet size even though it means our elements usually have more classes. For a large app, a smaller stylesheet is more important to us than reducing the number of class names on elements.
+  + While there is still debate over the best way to use OOCSS this style guide takes an approach we've found to be most easily implemented and maintained on a large app. Our implementation of this strategy uses BEM: two underscores to declare children selectors, two hyphens to declare class name alternatives, and most actual class names as modules (as opposed to SASS @extend placeholders). Ultimately, we've found that using class names for our modules reduces our stylesheet size even though it means our elements usually have more classes. For a large app, a smaller stylesheet is more important to us than reducing the number of class names on elements.
 
 
 ## Selector Types
@@ -184,7 +184,7 @@
     // Bad
     .foo-bar {
       background:#000;
-      color: #fff;
+      color:#fff;
     }
 
     // Good
