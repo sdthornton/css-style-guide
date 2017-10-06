@@ -7,7 +7,7 @@
 
 - **[Precusory Information](#precursory-information)**
   1. [Browsers & Selectors](#browsers--selectors)
-  1. [OOCSS (w/ BEM)](#oocss)
+  1. [OOCSS (w/ BEM)](#oocss-using-bem)
 
 
 - **[Selector Types](#selector-types)**
